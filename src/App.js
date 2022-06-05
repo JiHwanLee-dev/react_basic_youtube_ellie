@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styles from './app.module.css';
 import SearchHeader from './components/search_header/search_header';
 import VideoDetail from './components/video_detail/video_detail';
@@ -13,13 +13,24 @@ function App({ youtube }) {
     setSelectedVideo(video);
   }
 
-  const search = query => {
-    youtube.search(query)
-      .then(videos => {
-        setVideos(videos);
-        setSelectedVideo(null);
-      });
-  };
+  // const search =  query => {
+  //   console.log(`search 함수 실행 !! `);
+  //   youtube.search(query)
+  //     .then(videos => {
+  //       setVideos(videos);
+  //       setSelectedVideo(null);
+  //     });
+  // };
+
+  const search = useCallback(
+    query => {
+      youtube.search(query)
+        .then(videos => {
+          setVideos(videos);
+          setSelectedVideo(null);
+        });
+    
+  }, []);
 
   useEffect(() => {
     youtube.mostPopular()

@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import styles from './search_header.module.css';
 
-const SearchHeader = ({onSearch}) => {
+// memo함수를 써도 search_header부분이 리렌더링 된다. 이유는 props의 onSearch가 새로운 값으로 전달이 되어서 리렌더링이 됨.  
+const SearchHeader = memo(({onSearch}) => {
+    console.log(`searchHeader`);
     const inputRef = useRef();
 
     const hadnleSearch = () => {
@@ -36,7 +38,7 @@ const SearchHeader = ({onSearch}) => {
                 <img className={styles.buttonImg} src="/images/search.png" alt="" />
             </button>
         </header>
-    )
-}
+    );
+});
 
 export default SearchHeader;
